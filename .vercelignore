@@ -1,0 +1,8 @@
+.pnpm-store
+node_modules
+**/node_modules
+.local
+.cache
+.cursor
+artifacts/**/dist
+**/*.tsbuildinfo
