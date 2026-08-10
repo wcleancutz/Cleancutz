@@ -1,4 +1,4 @@
-import { type FormEvent, type ReactNode, useState } from 'react';
+import { type ReactNode, useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
@@ -7,7 +7,6 @@ import NotFound from '@/pages/not-found';
 import {
   ArrowDown,
   ArrowRight,
-  CalendarDays,
   Check,
   Clock3,
   Copy,
@@ -18,7 +17,6 @@ import {
   MessageCircle,
   Phone,
   Scissors,
-  Send,
   ShieldCheck,
   Star,
   UserRound,
@@ -35,16 +33,11 @@ const queryClient = new QueryClient();
 
 function Home() {
   const [mobileMenu, setMobileMenu] = useState(false);
-  const [bookingOpen, setBookingOpen] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
   const [copied, setCopied] = useState(false);
   const phone = '(843) 680-0814';
   const mapsUrl = 'https://www.google.com/maps/search/?api=1&query=CleanCutz+Barbering+LLC+208+N+Maple+St+Pageland+SC+29728';
+  const bookingUrl = 'https://search.thecut.co/barbers/Walt-Gifted-Hands';
 
-  const closeBooking = () => {
-    setBookingOpen(false);
-    setSubmitted(false);
-  };
   const copyPhone = async () => {
     try {
       await navigator.clipboard.writeText(phone);
@@ -55,11 +48,6 @@ function Home() {
       window.setTimeout(() => setCopied(false), 1800);
     }
   };
-  const submitBooking = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setSubmitted(true);
-  };
-
   return (
     <div className="site-shell grain bg-background text-foreground">
       <header className="relative z-20 border-b border-border/80 bg-background/95 backdrop-blur-sm">
@@ -115,9 +103,9 @@ function Home() {
                 A clean cut, a good conversation, and a chair that feels like yours. CleanCutz is Pageland’s local spot for looking put together without making a production of it.
               </p>
               <div className="rise rise-delay-3 mt-9 flex flex-wrap gap-3">
-                <button type="button" onClick={() => setBookingOpen(true)} className="group inline-flex items-center gap-3 rounded-sm bg-accent px-5 py-3.5 text-xs font-extrabold uppercase tracking-[.12em] text-accent-foreground shadow-[5px_5px_0_hsl(var(--primary))] transition-transform hover:-translate-y-0.5 active:translate-y-0" data-testid="button-book-hero">
-                  Request a chair <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
-                </button>
+                <a href={bookingUrl} target="_blank" rel="noreferrer" className="group inline-flex items-center gap-3 rounded-sm bg-accent px-5 py-3.5 text-xs font-extrabold uppercase tracking-[.12em] text-accent-foreground shadow-[5px_5px_0_hsl(var(--primary))] transition-transform hover:-translate-y-0.5 active:translate-y-0" data-testid="link-book-hero">
+                  Book an appointment <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
+                </a>
                 <a href="tel:+18436800814" className="inline-flex items-center gap-2 rounded-sm border border-primary/25 bg-background/60 px-5 py-3.5 text-xs font-extrabold uppercase tracking-[.12em] transition-colors hover:border-accent hover:text-accent" data-testid="link-call-hero">
                   <Phone size={15} /> {phone}
                 </a>
@@ -182,7 +170,7 @@ function Home() {
               <p className="eyebrow text-accent">01 / What we do</p>
               <h2 className="display-title mt-5 max-w-[330px] text-5xl md:text-6xl">The usual.<br /><em>Done right.</em></h2>
               <p className="mt-7 max-w-[300px] text-sm leading-6 text-muted-foreground">No mystery menu. Just the essentials, handled with a steady hand and an eye for the details.</p>
-              <button type="button" onClick={() => setBookingOpen(true)} className="mt-8 inline-flex items-center gap-2 border-b border-accent pb-2 text-xs font-extrabold uppercase tracking-[.12em] text-accent transition-colors hover:text-primary" data-testid="button-book-services">Ask about an appointment <ArrowRight size={15} /></button>
+              <a href={bookingUrl} target="_blank" rel="noreferrer" className="mt-8 inline-flex items-center gap-2 border-b border-accent pb-2 text-xs font-extrabold uppercase tracking-[.12em] text-accent transition-colors hover:text-primary" data-testid="link-book-services">Book your appointment <ArrowRight size={15} /></a>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
               {[
@@ -304,7 +292,7 @@ function Home() {
         <section className="border-b border-border bg-accent text-accent-foreground">
           <div className="container-wide flex flex-col items-start justify-between gap-6 py-12 md:flex-row md:items-center">
             <div><p className="eyebrow opacity-70">Ready when you are</p><h2 className="mt-2 font-display text-4xl font-bold md:text-5xl">Let’s get you in the chair.</h2></div>
-            <button type="button" onClick={() => setBookingOpen(true)} className="inline-flex items-center gap-3 rounded-sm bg-primary px-6 py-4 text-xs font-extrabold uppercase tracking-[.12em] text-background transition-transform hover:-translate-y-0.5" data-testid="button-book-bottom">Request an appointment <ArrowRight size={15} /></button>
+            <a href={bookingUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-3 rounded-sm bg-primary px-6 py-4 text-xs font-extrabold uppercase tracking-[.12em] text-background transition-transform hover:-translate-y-0.5" data-testid="link-book-bottom">Book an appointment <ArrowRight size={15} /></a>
           </div>
         </section>
       </main>
@@ -321,37 +309,6 @@ function Home() {
         </div>
       </footer>
 
-      {bookingOpen && (
-        <div className="modal-backdrop fixed inset-0 z-40 flex items-end justify-center bg-primary/70 p-0 sm:items-center sm:p-5" role="dialog" aria-modal="true" aria-labelledby="booking-title" onMouseDown={(event) => { if (event.target === event.currentTarget) closeBooking(); }}>
-          <div className="modal-panel max-h-[92dvh] w-full max-w-[560px] overflow-y-auto bg-background p-6 text-foreground shadow-2xl sm:p-9">
-            <div className="flex items-start justify-between gap-5">
-              <div><p className="eyebrow text-accent">A quick note is all it takes</p><h2 id="booking-title" className="display-title mt-3 text-4xl">Request a chair.</h2></div>
-              <button type="button" onClick={closeBooking} aria-label="Close appointment form" className="flex h-9 w-9 items-center justify-center border border-border transition-colors hover:border-accent hover:text-accent" data-testid="button-close-booking"><X size={17} /></button>
-            </div>
-            {submitted ? (
-              <div className="mt-10 border border-accent/30 bg-accent/5 p-7">
-                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-accent text-accent-foreground"><Check size={20} /></div>
-                <h3 className="mt-5 font-display text-3xl">Message noted.</h3>
-                <p className="mt-3 text-sm leading-6 text-muted-foreground">Thanks for reaching out. This form is a front-end request, so the best next step is to call <a href="tel:+18436800814" className="font-bold text-accent">{phone}</a> to lock in your time.</p>
-                <button type="button" onClick={closeBooking} className="mt-7 border-b border-primary pb-1 text-xs font-extrabold uppercase tracking-[.1em]" data-testid="button-close-success">Back to the shop</button>
-              </div>
-            ) : (
-              <form className="mt-8 grid gap-5" onSubmit={submitBooking}>
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <label className="grid gap-2"><span className="eyebrow">Your name</span><input required name="name" className="form-input" placeholder="First and last" data-testid="input-booking-name" /></label>
-                  <label className="grid gap-2"><span className="eyebrow">Phone</span><input required type="tel" name="phone" className="form-input" placeholder="(843) 000-0000" data-testid="input-booking-phone" /></label>
-                </div>
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <label className="grid gap-2"><span className="eyebrow">What can we do?</span><select name="service" className="form-input" defaultValue="Haircut" data-testid="select-booking-service"><option>Haircut</option><option>Shampoo</option><option>Shaving</option><option>Eyebrow arching</option></select></label>
-                  <label className="grid gap-2"><span className="eyebrow">Best day / time</span><input name="time" className="form-input" placeholder="e.g. Tuesday after 3" data-testid="input-booking-time" /></label>
-                </div>
-                <label className="grid gap-2"><span className="eyebrow">Anything we should know?</span><textarea name="message" rows={3} className="form-input resize-none" placeholder="A little context helps..." data-testid="textarea-booking-message" /></label>
-                <div className="flex flex-col justify-between gap-4 border-t border-border pt-5 sm:flex-row sm:items-center"><p className="flex items-center gap-2 text-xs text-muted-foreground"><CalendarDays size={14} className="text-accent" /> We’ll use this as a request, not a locked booking.</p><button type="submit" className="inline-flex items-center justify-center gap-2 rounded-sm bg-accent px-5 py-3.5 text-xs font-extrabold uppercase tracking-[.1em] text-accent-foreground transition-transform hover:-translate-y-0.5" data-testid="button-submit-booking">Send request <Send size={14} /></button></div>
-              </form>
-            )}
-          </div>
-        </div>
-      )}
     </div>
   );
 }
