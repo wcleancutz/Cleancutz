@@ -186,13 +186,13 @@
   .marquee-track { animation-duration: 36s; }
 }
 
-/* CleanCutz brand palette: black, warm gold, and barber-pole red. */
+/* CleanCutz brand palette: black + logo gold primary, pole red secondary. */
 :root {
   --background: 0 0% 5%;
   --foreground: 42 40% 88%;
   --border: 42 24% 25%;
   --input: 42 24% 25%;
-  --ring: 0 73% 47%;
+  --ring: 43 52% 54%;
   --card: 0 0% 8%;
   --card-foreground: 42 40% 88%;
   --card-border: 42 24% 25%;
@@ -205,28 +205,35 @@
   --secondary-foreground: 42 40% 88%;
   --muted: 42 16% 13%;
   --muted-foreground: 42 17% 67%;
-  --accent: 0 73% 47%;
-  --accent-foreground: 42 45% 94%;
+  /* Gold matches Clean Cutz logo metal */
+  --accent: 43 52% 54%;
+  --accent-foreground: 0 0% 6%;
+  /* Barber-pole red for closed / stripe energy only */
+  --pole-red: 0 73% 47%;
   --destructive: 0 73% 47%;
   --destructive-foreground: 42 45% 94%;
   --sidebar: 0 0% 2%;
   --sidebar-foreground: 42 40% 88%;
   --sidebar-border: 42 24% 20%;
-  --sidebar-primary: 0 73% 47%;
-  --sidebar-primary-foreground: 42 45% 94%;
+  --sidebar-primary: 43 52% 54%;
+  --sidebar-primary-foreground: 0 0% 6%;
   --sidebar-accent: 42 24% 18%;
   --sidebar-accent-foreground: 42 40% 88%;
-  --sidebar-ring: 0 73% 47%;
+  --sidebar-ring: 43 52% 54%;
 }
 
 .red-stripe {
   background: repeating-linear-gradient(
     135deg,
-    hsl(var(--accent)) 0 13px,
-    hsl(var(--accent)) 13px 26px,
-    hsl(var(--foreground)) 26px 39px,
-    hsl(var(--foreground)) 39px 52px,
-    hsl(var(--primary)) 52px 65px,
-    hsl(var(--primary)) 65px 78px
+    hsl(var(--pole-red)) 0 13px,
+    hsl(var(--pole-red)) 13px 26px,
+    hsl(0 0% 96%) 26px 39px,
+    hsl(0 0% 96%) 39px 52px,
+    hsl(220 60% 28%) 52px 65px,
+    hsl(220 60% 28%) 65px 78px
   );
+}
+
+.text-pole {
+  color: hsl(var(--pole-red));
 }

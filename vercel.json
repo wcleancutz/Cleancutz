@@ -1,0 +1,6 @@
+{
+  "buildCommand": "pnpm --filter @workspace/cleancutz-barbering build",
+  "outputDirectory": "artifacts/cleancutz-barbering/dist/public",
+  "installCommand": "pnpm install",
+  "framework": null
+}
