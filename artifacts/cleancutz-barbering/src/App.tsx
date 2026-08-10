@@ -4,7 +4,6 @@ import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import NotFound from '@/pages/not-found';
-import shopImage from '@assets/image_1786329836973.png';
 import {
   ArrowDown,
   ArrowRight,
@@ -132,11 +131,24 @@ function Home() {
             </div>
             <div className="relative mx-auto w-full max-w-[540px] lg:justify-self-end">
               <div className="absolute -left-5 top-12 hidden h-32 w-2.5 red-stripe sm:block" />
-              <div className="image-frame hero-image relative aspect-[.89] overflow-hidden rounded-sm border-[10px] border-background bg-muted sm:aspect-[.92]">
-                <img src={shopImage} alt="Inside CleanCutz Barbering LLC in Pageland, with barber chairs and workstations" className="h-full w-full object-cover object-[50%_27%]" data-testid="img-shop-hero" />
-                <div className="absolute inset-x-0 bottom-0 flex items-end justify-between bg-gradient-to-t from-primary/90 via-primary/40 to-transparent px-5 pb-5 pt-20 text-background">
+              <div className="image-frame hero-image barber-graphic relative aspect-[.89] overflow-hidden rounded-sm border-[10px] border-background bg-primary sm:aspect-[.92]" aria-label="A branded illustration of a barber chair at CleanCutz">
+                <div className="barber-graphic-grid absolute inset-0" />
+                <div className="absolute left-[12%] top-[13%]">
+                  <p className="eyebrow text-background/60">CleanCutz / 001</p>
+                  <p className="mt-3 max-w-[260px] font-display text-5xl leading-[.9] text-background sm:text-6xl">Fresh<br /><em className="text-accent">from the chair.</em></p>
+                </div>
+                <div className="barber-chair absolute bottom-[13%] left-1/2 h-[47%] w-[42%] -translate-x-1/2">
+                  <div className="barber-chair-head absolute left-1/2 top-0 h-[27%] w-[48%] -translate-x-1/2 rounded-t-[45%] border-4 border-accent bg-background/10" />
+                  <div className="barber-chair-back absolute left-1/2 top-[21%] h-[45%] w-[62%] -translate-x-1/2 rounded-t-[35%] border-4 border-accent bg-background/10" />
+                  <div className="barber-chair-seat absolute bottom-[16%] left-1/2 h-[22%] w-[78%] -translate-x-1/2 rounded-[35%] border-4 border-accent bg-accent/20" />
+                  <div className="barber-chair-base absolute bottom-0 left-1/2 h-[20%] w-1 -translate-x-1/2 bg-accent" />
+                  <div className="absolute bottom-0 left-1/2 h-2 w-[55%] -translate-x-1/2 rounded-full bg-accent" />
+                  <div className="absolute bottom-0 left-[10%] h-2 w-2 rounded-full bg-accent" />
+                  <div className="absolute bottom-0 right-[10%] h-2 w-2 rounded-full bg-accent" />
+                </div>
+                <div className="absolute inset-x-0 bottom-0 flex items-end justify-between border-t border-background/20 bg-primary/80 px-5 pb-5 pt-5 text-background backdrop-blur-sm">
                   <div>
-                    <p className="eyebrow text-background/70">208 N Maple Street</p>
+                    <p className="eyebrow text-background/60">208 N Maple Street</p>
                     <p className="mt-1 font-display text-2xl">Your chair is here.</p>
                   </div>
                   <span className="float-mark hidden h-14 w-14 items-center justify-center rounded-full border border-background/50 text-center text-[9px] font-bold uppercase leading-3 tracking-[.1em] sm:flex">Since<br />Pageland</span>
@@ -198,11 +210,23 @@ function Home() {
           <div className="container-wide grid items-center gap-14 py-24 md:py-32 lg:grid-cols-[1.1fr_.9fr]">
             <div className="relative order-2 lg:order-1">
               <div className="absolute -left-6 -top-6 h-20 w-20 border-l border-t border-accent" />
-              <div className="relative overflow-hidden border border-border bg-primary p-3">
-                <img src={shopImage} alt="CleanCutz shop interior and barber stations" className="h-[350px] w-full object-cover object-[50%_32%] grayscale-[.15] md:h-[460px]" data-testid="img-shop-story" />
-                <div className="absolute bottom-6 left-6 bg-background px-4 py-3">
-                  <p className="eyebrow text-accent">Inside the shop</p>
-                  <p className="mt-1 text-xs font-bold">Relaxed chairs. Serious detail.</p>
+              <div className="shop-poster relative min-h-[350px] overflow-hidden border border-border bg-primary p-8 md:min-h-[460px]">
+                <div className="poster-sun absolute -right-16 -top-16 h-64 w-64 rounded-full border border-accent/40" />
+                <div className="poster-sun absolute -right-5 -top-5 h-44 w-44 rounded-full border border-accent/30" />
+                <div className="relative z-10 flex h-full min-h-[294px] flex-col justify-between md:min-h-[404px]">
+                  <div className="flex items-start justify-between text-background">
+                    <p className="eyebrow text-background/60">Inside the shop</p>
+                    <Scissors size={20} className="text-accent" strokeWidth={1.5} />
+                  </div>
+                  <div>
+                    <p className="font-mono-ui text-[clamp(4rem,10vw,7rem)] font-bold leading-[.8] tracking-[-.1em] text-accent">CUT</p>
+                    <p className="font-mono-ui text-[clamp(4rem,10vw,7rem)] font-bold leading-[.8] tracking-[-.1em] text-background">CLEAN</p>
+                    <p className="font-mono-ui text-[clamp(4rem,10vw,7rem)] font-bold leading-[.8] tracking-[-.1em] text-background/30">READY</p>
+                  </div>
+                  <div className="flex items-end justify-between gap-4 border-t border-background/20 pt-4 text-background">
+                    <p className="max-w-[190px] text-xs leading-5 text-background/65">Relaxed chairs. Serious detail. A neighborhood place to leave feeling ready.</p>
+                    <span className="font-mono-ui text-[10px] uppercase tracking-[.15em] text-accent">Pageland, SC</span>
+                  </div>
                 </div>
               </div>
             </div>
