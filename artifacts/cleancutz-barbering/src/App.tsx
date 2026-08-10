@@ -443,7 +443,7 @@ function Home() {
             <p className="eyebrow text-accent">01 / The chairs</p>
             <h2 className="display-title mt-5 text-5xl md:text-6xl">Pick your<br /><em>barber.</em></h2>
             <p className="mt-7 text-sm leading-6 text-muted-foreground">
-              Each barber sets their own prices and books on their own theCut link. Choose who you want in the chair, then book that person.
+              Each barber sets their own prices and books on their own theCut calendar. Choose who you want in the chair, then Book opens theCut to finish.
             </p>
           </div>
           <div className="mt-12 grid gap-5 lg:grid-cols-2">
@@ -475,7 +475,7 @@ function Home() {
                           className="inline-flex items-center gap-2 rounded-sm bg-accent px-4 py-3 text-xs font-extrabold uppercase tracking-[.12em] text-accent-foreground transition-transform hover:-translate-y-0.5"
                           data-testid={`link-book-${barber.id}`}
                         >
-                          Book {barber.shortName} <ExternalLink size={14} />
+                          Book {barber.shortName} on theCut <ExternalLink size={14} />
                         </a>
                         <button
                           type="button"
@@ -535,7 +535,7 @@ function Home() {
                   className="mt-8 inline-flex items-center gap-2 border-b border-accent pb-2 text-xs font-extrabold uppercase tracking-[.12em] text-accent transition-colors hover:text-foreground"
                   data-testid="link-book-services"
                 >
-                  Book {selectedBarber.shortName} <ArrowRight size={15} />
+                  Book {selectedBarber.shortName} on theCut <ExternalLink size={15} />
                 </a>
               </div>
               <div className="grid gap-3" role="tabpanel" aria-label={`${selectedBarber.name} services`}>
@@ -731,7 +731,10 @@ function Home() {
         <section className="border-b border-border bg-card">
           <div className="container-wide py-12">
             <p className="eyebrow text-accent">Also on theCut</p>
-            <h2 className="mt-2 font-display text-3xl font-bold md:text-4xl">Book through the app you already know.</h2>
+            <h2 className="mt-2 font-display text-3xl font-bold md:text-4xl">Book through theCut — the calendar we use.</h2>
+            <p className="mt-3 max-w-[480px] text-sm leading-6 text-muted-foreground">
+              Booking opens theCut in a new tab so you can pick a time and get your reminder there.
+            </p>
             <div className="mt-8 flex flex-wrap gap-3">
               {barbers.map((barber) => (
                 <a
@@ -742,7 +745,7 @@ function Home() {
                   className="inline-flex items-center gap-3 rounded-sm border border-accent px-6 py-4 text-xs font-extrabold uppercase tracking-[.12em] text-accent transition-colors hover:bg-accent hover:text-accent-foreground"
                   data-testid={`link-thecut-bridge-${barber.id}`}
                 >
-                  Book {barber.shortName} <ArrowRight size={15} />
+                  Book {barber.shortName} on theCut <ExternalLink size={15} />
                 </a>
               ))}
             </div>
@@ -754,6 +757,9 @@ function Home() {
             <div>
               <p className="eyebrow opacity-70">Ready when you are</p>
               <h2 className="mt-2 font-display text-4xl font-bold md:text-5xl">Let’s get you in the chair.</h2>
+              <p className="mt-3 max-w-[420px] text-sm leading-6 opacity-80">
+                Pick Walt or Mar, then finish booking on theCut.
+              </p>
             </div>
             <a href="#barbers" className="inline-flex items-center gap-3 rounded-sm bg-background px-6 py-4 text-xs font-extrabold uppercase tracking-[.12em] text-foreground transition-transform hover:-translate-y-0.5" data-testid="link-book-bottom">Choose a barber <ArrowRight size={15} /></a>
           </div>
