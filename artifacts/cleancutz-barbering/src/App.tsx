@@ -238,16 +238,16 @@ function Home() {
             <div className="relative z-10">
               <div className="rise flex items-center gap-3 text-accent">
                 <span className="h-px w-10 bg-accent" />
-                <span className="eyebrow font-medium tracking-[.2em]">Clean Cutz · Pageland</span>
+                <span className="eyebrow font-medium tracking-[.2em]">CleanCutz Barbering · Pageland</span>
               </div>
               <p className="rise rise-delay-1 mt-6 font-display text-[clamp(1.75rem,4vw,2.35rem)] font-bold tracking-[-.02em] text-accent">
-                CLEAN CUTZ
+                CleanCutz Barbering
               </p>
               <h1 className="display-title rise rise-delay-1 mt-3 max-w-[590px] text-[clamp(3.4rem,9vw,7.2rem)]">
                 Come in<br /><em className="text-accent">sharp.</em>
               </h1>
               <p className="rise rise-delay-2 mt-8 max-w-[420px] text-[15px] leading-7 text-muted-foreground">
-                A clean cut, a good conversation, and a shop with a pool table while you wait. CleanCutz is Pageland’s spot for looking put together without making a production of it.
+                A clean cut, a good conversation, and a shop with a pool table while you wait. CleanCutz Barbering is Pageland’s spot for looking put together without making a production of it.
               </p>
               <div className="rise rise-delay-3 mt-9 flex flex-wrap gap-3">
                 <a href={bookingUrl} target="_blank" rel="noreferrer" className="group inline-flex items-center gap-3 rounded-sm bg-accent px-5 py-3.5 text-xs font-extrabold uppercase tracking-[.12em] text-accent-foreground shadow-[5px_5px_0_hsl(var(--primary))] transition-transform hover:-translate-y-0.5 active:translate-y-0" data-testid="link-book-hero">
@@ -267,7 +267,7 @@ function Home() {
             <div className="relative mx-auto w-full max-w-[540px] lg:justify-self-end">
               <div className="absolute -left-5 top-12 hidden h-32 w-2.5 red-stripe sm:block" />
               <div className="image-frame hero-image relative aspect-[3/4] max-h-[620px] overflow-hidden rounded-sm border-[10px] border-border/40 bg-background">
-                <img src={logo} alt="CleanCutz Barbering LLC logo with a barber pole, chair, and gold lettering" className="h-full w-full object-contain p-2 sm:p-4" data-testid="img-logo-hero" />
+                <img src={logo} alt="CleanCutz Barbering logo with a barber pole, chair, and gold lettering" className="h-full w-full object-contain p-2 sm:p-4" data-testid="img-logo-hero" />
               </div>
               <div className="absolute -bottom-4 -right-4 hidden border border-border bg-card px-5 py-4 text-foreground sm:block">
                 <p className="eyebrow text-muted-foreground">Open Tuesday–Saturday</p>
@@ -351,7 +351,7 @@ function Home() {
                 >
                   <img
                     src={src}
-                    alt={`CleanCutz haircut ${index + 1}`}
+                    alt={`CleanCutz Barbering haircut ${index + 1}`}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                   />
@@ -516,11 +516,11 @@ function Home() {
           <div className="flex items-center gap-3">
             <img src={logo} alt="CleanCutz Barbering" className="h-14 w-auto object-contain" />
           </div>
-          <p className="mt-3 text-xs text-muted-foreground">CleanCutz Barbering LLC · Pageland, South Carolina</p>
+          <p className="mt-3 text-xs text-muted-foreground">CleanCutz Barbering · Pageland, South Carolina</p>
         </div>
         <div className="flex items-center gap-5">
-          <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="CleanCutz on Instagram" className="text-muted-foreground transition-colors hover:text-accent" data-testid="link-instagram"><Instagram size={17} /></a>
-          <a href={facebookUrl} target="_blank" rel="noreferrer" aria-label="CleanCutz on Facebook" className="text-muted-foreground transition-colors hover:text-accent" data-testid="link-facebook"><Facebook size={17} /></a>
+          <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="CleanCutz Barbering on Instagram" className="text-muted-foreground transition-colors hover:text-accent" data-testid="link-instagram"><Instagram size={17} /></a>
+          <a href={facebookUrl} target="_blank" rel="noreferrer" aria-label="CleanCutz Barbering on Facebook" className="text-muted-foreground transition-colors hover:text-accent" data-testid="link-facebook"><Facebook size={17} /></a>
           <span className="eyebrow text-muted-foreground">Made for the neighborhood</span>
         </div>
       </footer>
@@ -560,7 +560,7 @@ function Home() {
           </button>
           <img
             src={galleryImages[lightboxIndex]}
-            alt={`CleanCutz haircut ${lightboxIndex + 1}`}
+            alt={`CleanCutz Barbering haircut ${lightboxIndex + 1}`}
             className="modal-panel max-h-[85vh] max-w-[min(920px,92vw)] object-contain"
             onClick={(event) => event.stopPropagation()}
           />

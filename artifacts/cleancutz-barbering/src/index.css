@@ -186,7 +186,7 @@
   .marquee-track { animation-duration: 36s; }
 }
 
-/* CleanCutz brand palette: black + logo gold primary, pole red secondary. */
+/* CleanCutz Barbering brand palette: black + logo gold primary, pole red secondary. */
 :root {
   --background: 0 0% 5%;
   --foreground: 42 40% 88%;
@@ -205,7 +205,7 @@
   --secondary-foreground: 42 40% 88%;
   --muted: 42 16% 13%;
   --muted-foreground: 42 17% 67%;
-  /* Gold matches Clean Cutz logo metal */
+  /* Gold matches CleanCutz Barbering logo metal */
   --accent: 43 52% 54%;
   --accent-foreground: 0 0% 6%;
   /* Barber-pole red for closed / stripe energy only */
