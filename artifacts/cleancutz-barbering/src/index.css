@@ -237,3 +237,8 @@
 .text-pole {
   color: hsl(var(--pole-red));
 }
+
+/* Trustmary ships a light-theme title (#000) — force contrast on our dark page */
+[data-testid="trustmary-reviews"] .tm-title[data-tm-edit="widget-layout"] {
+  color: hsl(var(--foreground)) !important;
+}
