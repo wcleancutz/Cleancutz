@@ -1,4 +1,4 @@
-import { type ReactNode, useEffect, useMemo, useState } from 'react';
+import { type ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
@@ -100,6 +100,28 @@ const hours = [
   { day: 'Friday', time: '8:00 AM – 6:00 PM', closed: false },
   { day: 'Saturday', time: '8:00 AM – 3:00 PM', closed: false },
 ];
+
+const TRUSTMARY_SCRIPT = 'https://widget.trustmary.com/DhtFSMbZn';
+
+function TrustmaryReviews() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const script = document.createElement('script');
+    script.src = TRUSTMARY_SCRIPT;
+    script.async = true;
+    container.appendChild(script);
+
+    return () => {
+      container.replaceChildren();
+    };
+  }, []);
+
+  return <div ref={containerRef} className="mt-14" data-testid="trustmary-reviews" />;
+}
 
 function Home() {
   const [mobileMenu, setMobileMenu] = useState(false);
@@ -423,21 +445,9 @@ function Home() {
               <p className="eyebrow text-accent">04 / Word on the street</p>
               <h2 className="display-title mt-5 text-5xl md:text-6xl">People leave<br /><em>looking good.</em></h2>
             </div>
-            <a href="https://www.google.com/search?q=CleanCutz+Barbering+LLC+Pageland+reviews" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 border-b border-foreground pb-2 text-xs font-extrabold uppercase tracking-[.1em] transition-colors hover:border-accent hover:text-accent" data-testid="link-google-reviews">Read all 45 reviews <ExternalLink size={14} /></a>
+            <a href="https://www.google.com/search?q=CleanCutz+Barbering+LLC+Pageland+reviews" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 border-b border-foreground pb-2 text-xs font-extrabold uppercase tracking-[.1em] transition-colors hover:border-accent hover:text-accent" data-testid="link-google-reviews">Read all Google reviews <ExternalLink size={14} /></a>
           </div>
-          <div className="mt-14 grid gap-4 lg:grid-cols-[1fr_1.2fr_1fr]">
-            {[
-              ['“', 'The kind of place you’re glad you found. Easygoing, clean, and the cut came out exactly right.', 'A local regular'],
-              ['“', 'Great neighborhood shop with a welcoming feel. They took their time and paid attention to the small stuff.', 'Pageland neighbor'],
-              ['“', 'Walked in needing a refresh and left feeling like I had my day back. Will definitely be calling again.', 'First-time visitor'],
-            ].map(([quote, copy, author], index) => (
-              <figure key={author} className={`border border-border p-7 ${index === 1 ? 'border-accent bg-card text-foreground lg:-translate-y-4' : 'bg-card'}`}>
-                <div className="flex items-center gap-1 text-accent">{[1, 2, 3, 4, 5].map((star) => <Star key={star} size={13} fill="currentColor" strokeWidth={1} />)}</div>
-                <blockquote className="mt-8 font-display text-[22px] leading-[1.2]">{quote as string}{copy as string}</blockquote>
-                <figcaption className="mt-8 text-xs font-bold uppercase tracking-[.1em] text-muted-foreground">{author as string}</figcaption>
-              </figure>
-            ))}
-          </div>
+          <TrustmaryReviews />
         </section>
 
         <section id="visit" className="border-y border-border bg-card text-foreground">
