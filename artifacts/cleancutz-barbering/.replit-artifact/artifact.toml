@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "CleanCutz Barbering LLC"
+description = "A polished local business website for CleanCutz Barbering LLC in Pageland, South Carolina, featuring the shop, services, hours, reviews, location, and clear contact actions."
+version = "1.0.0"
+id = "artifacts/cleancutz-barbering"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20512
+
+[services.development]
+run = "pnpm --filter @workspace/cleancutz-barbering run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/cleancutz-barbering", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/cleancutz-barbering/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20512"
+BASE_PATH = "/"
