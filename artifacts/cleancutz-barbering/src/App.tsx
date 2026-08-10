@@ -6,6 +6,8 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import NotFound from '@/pages/not-found';
 import logo from '@assets/logo-cleancutz.png';
 import poolTable from '@assets/shop/pool-table.jpg';
+import marPortrait from '@assets/gallery/mar-cut-01.jpg';
+import waltPortrait from '@assets/gallery/cut-01.jpg';
 import {
   ArrowDown,
   ArrowLeft,
@@ -31,63 +33,167 @@ import {
 
 const queryClient = new QueryClient();
 
-const galleryModules = import.meta.glob('@assets/gallery/cut-*.jpg', {
+type Service = {
+  name: string;
+  price: string;
+  duration: string;
+  description: string;
+};
+
+type BarberId = 'walt' | 'mar';
+
+type Barber = {
+  id: BarberId;
+  name: string;
+  shortName: string;
+  bookingUrl: string;
+  blurb: string;
+  rating: string;
+  reviewCount: number;
+  portrait: string;
+  services: Service[];
+};
+
+type GalleryFilter = 'all' | BarberId;
+
+type GalleryItem = {
+  src: string;
+  barber: BarberId;
+};
+
+const waltGalleryModules = import.meta.glob('@assets/gallery/cut-*.jpg', {
   eager: true,
   import: 'default',
 }) as Record<string, string>;
 
-const galleryImages = Object.entries(galleryModules)
-  .sort(([a], [b]) => a.localeCompare(b))
-  .map(([, src]) => src);
+const marGalleryModules = import.meta.glob('@assets/gallery/mar-cut-*.jpg', {
+  eager: true,
+  import: 'default',
+}) as Record<string, string>;
 
-const services = [
+const galleryImages: GalleryItem[] = [
+  ...Object.entries(waltGalleryModules)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([, src]) => ({ src, barber: 'walt' as const })),
+  ...Object.entries(marGalleryModules)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([, src]) => ({ src, barber: 'mar' as const })),
+];
+
+const barbers: Barber[] = [
   {
-    name: 'VIP Cutz',
-    price: '$41',
-    duration: '30 min',
-    description: 'Hair cut, sponge curls, enhancement, razor line and chalk line.',
+    id: 'walt',
+    name: 'Walt Gifted Hands',
+    shortName: 'Walt',
+    bookingUrl: 'https://app.thecut.co/barbers/Walt-Gifted-Hands/book',
+    blurb: 'VIP cutz, weekend bookings, and the full CleanCutz menu — sharp detail with an easy chairside vibe.',
+    rating: '5.0',
+    reviewCount: 33,
+    portrait: waltPortrait,
+    services: [
+      {
+        name: 'VIP Cutz',
+        price: '$41',
+        duration: '30 min',
+        description: 'Hair cut, sponge curls, enhancement, razor line and chalk line.',
+      },
+      {
+        name: 'Hair Cut',
+        price: '$31',
+        duration: '25 min',
+        description: 'Hair cut and beard trim.',
+      },
+      {
+        name: 'Weekend Booking',
+        price: '$36',
+        duration: '25 min',
+        description: 'Friday & Saturday only. Limited spots for regular hair cutz and beard trim. VIP treatments are additional.',
+      },
+      {
+        name: 'Senior Citizen (60 & Up)',
+        price: '$26',
+        duration: '25 min',
+        description: 'Regular cut pricing for clients 60 and up.',
+      },
+      {
+        name: 'Kids Cutz (12 & Under)',
+        price: '$26',
+        duration: '25 min',
+        description: 'Designs and enhancement additional charge.',
+      },
+      {
+        name: 'VIP Special',
+        price: '$52',
+        duration: '30 min',
+        description: 'Hot towel and facial treatment with steam application. Appointments only.',
+      },
+      {
+        name: 'Women Cutz',
+        price: '$31',
+        duration: '25 min',
+        description: 'Women cutz with design additional charge.',
+      },
+      {
+        name: 'Line Up',
+        price: '$21',
+        duration: '15 min',
+        description: 'Line up includes head and beard.',
+      },
+    ],
   },
   {
-    name: 'Hair Cut',
-    price: '$31',
-    duration: '25 min',
-    description: 'Hair cut and beard trim.',
-  },
-  {
-    name: 'Weekend Booking',
-    price: '$36',
-    duration: '25 min',
-    description: 'Friday & Saturday only. Limited spots for regular hair cutz and beard trim. VIP treatments are additional.',
-  },
-  {
-    name: 'Senior Citizen (60 & Up)',
-    price: '$26',
-    duration: '25 min',
-    description: 'Regular cut pricing for clients 60 and up.',
-  },
-  {
-    name: 'Kids Cutz (12 & Under)',
-    price: '$26',
-    duration: '25 min',
-    description: 'Designs and enhancement additional charge.',
-  },
-  {
-    name: 'VIP Special',
-    price: '$52',
-    duration: '30 min',
-    description: 'Hot towel and facial treatment with steam application. Appointments only.',
-  },
-  {
-    name: 'Women Cutz',
-    price: '$31',
-    duration: '25 min',
-    description: 'Women cutz with design additional charge.',
-  },
-  {
-    name: 'Line Up',
-    price: '$21',
-    duration: '15 min',
-    description: 'Line up includes head and beard.',
+    id: 'mar',
+    name: 'Mar / MJ',
+    shortName: 'Mar',
+    bookingUrl: 'https://app.thecut.co/barbers/TheCleanCutExperience/book',
+    blurb: 'Fades, shape-ups, kids cutz, and VIP specials — patient with kids, precise on every edge.',
+    rating: '5.0',
+    reviewCount: 92,
+    portrait: marPortrait,
+    services: [
+      {
+        name: 'Kids/Teen Haircut Of Any Kind',
+        price: '$25',
+        duration: '35 min',
+        description: 'Temp fade, bald, low or mid fade, or even all over. Ages 3 and up.',
+      },
+      {
+        name: 'Shape Up',
+        price: '$20',
+        duration: '35 min',
+        description: 'Line up only — no hair cutting included in this pricing.',
+      },
+      {
+        name: 'Baldie With Facial Hair',
+        price: '$35',
+        duration: '35 min',
+        description: 'Bald head with foil shaver. Facial hair trim and line up included.',
+      },
+      {
+        name: 'Adult Haircut Of Any Kind',
+        price: '$35',
+        duration: '40 min',
+        description: 'Even all over or any type of fade. Beard and mustache included.',
+      },
+      {
+        name: 'VIP Special',
+        price: '$50',
+        duration: '1 hour',
+        description: 'Any haircut with hot towel, facial mask, and steam treatment.',
+      },
+      {
+        name: 'Women’s Cut Of Any Kind',
+        price: '$25',
+        duration: '35 min',
+        description: 'Women’s cut of any kind.',
+      },
+      {
+        name: 'Squeeze Me In Mar',
+        price: '$60',
+        duration: '45 min',
+        description: 'Any age or hairstyle — same price, no exceptions.',
+      },
+    ],
   },
 ];
 
@@ -127,12 +233,23 @@ function Home() {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [copied, setCopied] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [selectedBarberId, setSelectedBarberId] = useState<BarberId>('walt');
+  const [galleryFilter, setGalleryFilter] = useState<GalleryFilter>('all');
   const phone = '(843) 680-0814';
   const mapsUrl = 'https://www.google.com/maps/search/?api=1&query=CleanCutz+Barbering+LLC+208+N+Maple+St+Pageland+SC+29728';
-  const bookingUrl = 'https://app.thecut.co/barbers/Walt-Gifted-Hands';
   const facebookUrl = 'https://www.facebook.com/p/CleanCutz-Barbering-LLC-100063871770587/';
+  const selectedBarber = barbers.find((barber) => barber.id === selectedBarberId) ?? barbers[0];
+  const visibleGallery = useMemo(
+    () =>
+      galleryFilter === 'all'
+        ? galleryImages
+        : galleryImages.filter((item) => item.barber === galleryFilter),
+    [galleryFilter],
+  );
+
   const navItems = useMemo(
     () => [
+      { id: 'barbers', label: 'Barbers' },
       { id: 'services', label: 'Services' },
       { id: 'gallery', label: 'Gallery' },
       { id: 'story', label: 'The shop' },
@@ -141,6 +258,11 @@ function Home() {
     ],
     [],
   );
+
+  const selectBarber = (id: BarberId) => {
+    setSelectedBarberId(id);
+    setGalleryFilter(id);
+  };
 
   const copyPhone = async () => {
     try {
@@ -160,14 +282,14 @@ function Home() {
       if (event.key === 'Escape') setLightboxIndex(null);
       if (event.key === 'ArrowRight') {
         setLightboxIndex((current) =>
-          current === null ? current : (current + 1) % galleryImages.length,
+          current === null ? current : (current + 1) % visibleGallery.length,
         );
       }
       if (event.key === 'ArrowLeft') {
         setLightboxIndex((current) =>
           current === null
             ? current
-            : (current - 1 + galleryImages.length) % galleryImages.length,
+            : (current - 1 + visibleGallery.length) % visibleGallery.length,
         );
       }
     };
@@ -179,7 +301,11 @@ function Home() {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener('keydown', onKeyDown);
     };
-  }, [lightboxIndex]);
+  }, [lightboxIndex, visibleGallery.length]);
+
+  useEffect(() => {
+    setLightboxIndex(null);
+  }, [galleryFilter]);
 
   return (
     <div className="site-shell grain bg-background text-foreground">
@@ -206,13 +332,11 @@ function Home() {
           </nav>
           <div className="flex items-center gap-2">
             <a
-              href={bookingUrl}
-              target="_blank"
-              rel="noreferrer"
+              href="#barbers"
               className="hidden items-center gap-2 rounded-sm bg-accent px-4 py-2.5 text-xs font-bold uppercase tracking-[.1em] text-accent-foreground transition-transform hover:-translate-y-0.5 sm:flex"
               data-testid="link-header-book"
             >
-              Book now
+              Choose a barber
             </a>
             <button
               type="button"
@@ -240,14 +364,12 @@ function Home() {
                 </a>
               ))}
               <a
-                href={bookingUrl}
-                target="_blank"
-                rel="noreferrer"
+                href="#barbers"
                 className="mt-3 inline-flex items-center justify-center gap-2 rounded-sm bg-accent px-4 py-3 text-xs font-extrabold uppercase tracking-[.12em] text-accent-foreground"
                 onClick={() => setMobileMenu(false)}
                 data-testid="link-mobile-book"
               >
-                Book an appointment
+                Choose a barber
               </a>
             </div>
           </nav>
@@ -266,14 +388,14 @@ function Home() {
                 CleanCutz Barbering
               </p>
               <h1 className="display-title rise rise-delay-1 mt-3 max-w-[590px] text-[clamp(3.4rem,9vw,7.2rem)]">
-                Come in<br /><em className="text-accent">sharp.</em>
+                Fresh cuts,<br /><em className="text-accent">good company.</em>
               </h1>
               <p className="rise rise-delay-2 mt-8 max-w-[420px] text-[15px] leading-7 text-muted-foreground">
-                A clean cut, a good conversation, and a shop with a pool table while you wait. CleanCutz Barbering is Pageland’s spot for looking put together without making a production of it.
+                A clean cut, a good conversation, and a shop with a pool table while you wait. Two barbers, one shop — pick your chair and book on theCut.
               </p>
               <div className="rise rise-delay-3 mt-9 flex flex-wrap gap-3">
-                <a href={bookingUrl} target="_blank" rel="noreferrer" className="group inline-flex items-center gap-3 rounded-sm bg-accent px-5 py-3.5 text-xs font-extrabold uppercase tracking-[.12em] text-accent-foreground shadow-[5px_5px_0_hsl(var(--primary))] transition-transform hover:-translate-y-0.5 active:translate-y-0" data-testid="link-book-hero">
-                  Book an appointment <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
+                <a href="#barbers" className="group inline-flex items-center gap-3 rounded-sm bg-accent px-5 py-3.5 text-xs font-extrabold uppercase tracking-[.12em] text-accent-foreground shadow-[5px_5px_0_hsl(var(--primary))] transition-transform hover:-translate-y-0.5 active:translate-y-0" data-testid="link-book-hero">
+                  Choose a barber <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
                 </a>
                 <a href="tel:+18436800814" className="inline-flex items-center gap-2 rounded-sm border border-primary/25 bg-background/60 px-5 py-3.5 text-xs font-extrabold uppercase tracking-[.12em] transition-colors hover:border-accent hover:text-accent" data-testid="link-call-hero">
                   <Phone size={15} /> {phone}
@@ -287,7 +409,7 @@ function Home() {
               </div>
             </div>
             <div className="relative mx-auto w-full max-w-[540px] lg:justify-self-end">
-              <div className="absolute -left-5 top-12 hidden h-32 w-2.5 red-stripe sm:block" />
+              <div className="absolute -left-6 top-[18%] hidden h-[58%] w-3 red-stripe sm:block" />
               <div className="image-frame hero-image relative aspect-[3/4] max-h-[620px] overflow-hidden rounded-sm border-[10px] border-border/40 bg-background">
                 <img src={logo} alt="CleanCutz Barbering logo with a barber pole, chair, and gold lettering" className="h-full w-full object-contain p-2 sm:p-4" data-testid="img-logo-hero" />
               </div>
@@ -297,8 +419,8 @@ function Home() {
               </div>
             </div>
           </div>
-          <a href="#services" className="absolute bottom-7 left-1/2 hidden -translate-x-1/2 items-center gap-2 text-muted-foreground transition-colors hover:text-accent lg:flex" data-testid="link-scroll-services">
-            <span className="eyebrow">Scroll the shop</span><ArrowDown size={14} />
+          <a href="#barbers" className="absolute bottom-7 left-1/2 hidden -translate-x-1/2 items-center gap-2 text-muted-foreground transition-colors hover:text-accent lg:flex" data-testid="link-scroll-services">
+            <span className="eyebrow">Meet the barbers</span><ArrowDown size={14} />
           </a>
         </section>
 
@@ -309,62 +431,173 @@ function Home() {
                 <span className="eyebrow">Clean lines</span><span className="text-accent" aria-hidden="true">•</span>
                 <span className="eyebrow">Fresh fades</span><span className="text-accent" aria-hidden="true">•</span>
                 <span className="eyebrow">Pool table in the shop</span><span className="text-accent" aria-hidden="true">•</span>
+                <span className="eyebrow">Two barbers · one shop</span><span className="text-accent" aria-hidden="true">•</span>
                 <span className="eyebrow">Walk out ready</span><span className="text-accent" aria-hidden="true">•</span>
               </div>
             ))}
           </div>
         </div>
 
-        <section id="services" className="container-wide py-24 md:py-32">
-          <div className="grid gap-10 lg:grid-cols-[.72fr_1.28fr]">
-            <div>
-              <p className="eyebrow text-accent">01 / What we do</p>
-              <h2 className="display-title mt-5 max-w-[330px] text-5xl md:text-6xl">The usual.<br /><em>Done right.</em></h2>
-              <p className="mt-7 max-w-[300px] text-sm leading-6 text-muted-foreground">Straight prices, clear times. Book the cut that fits — from a quick line up to the full VIP treatment.</p>
-              <a href={bookingUrl} target="_blank" rel="noreferrer" className="mt-8 inline-flex items-center gap-2 border-b border-accent pb-2 text-xs font-extrabold uppercase tracking-[.12em] text-accent transition-colors hover:text-foreground" data-testid="link-book-services">Book your appointment <ArrowRight size={15} /></a>
-            </div>
-            <div className="grid gap-3">
-              {services.map((service) => (
+        <section id="barbers" className="container-wide py-24 md:py-32">
+          <div className="max-w-[560px]">
+            <p className="eyebrow text-accent">01 / The chairs</p>
+            <h2 className="display-title mt-5 text-5xl md:text-6xl">Pick your<br /><em>barber.</em></h2>
+            <p className="mt-7 text-sm leading-6 text-muted-foreground">
+              Each barber sets their own prices and books on their own theCut link. Choose who you want in the chair, then book that person.
+            </p>
+          </div>
+          <div className="mt-12 grid gap-5 lg:grid-cols-2">
+            {barbers.map((barber) => {
+              const active = selectedBarberId === barber.id;
+              return (
                 <article
-                  key={service.name}
-                  className="service-card group flex flex-col gap-3 border border-border bg-card p-5 transition-colors hover:border-accent sm:flex-row sm:items-start sm:justify-between sm:gap-8"
-                  data-testid={`service-${service.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
+                  key={barber.id}
+                  className={`border bg-card p-5 transition-colors sm:p-6 ${active ? 'border-accent' : 'border-border hover:border-accent/60'}`}
+                  data-testid={`barber-card-${barber.id}`}
                 >
-                  <div className="min-w-0 flex-1">
-                    <h3 className="font-display text-xl font-bold sm:text-2xl">{service.name}</h3>
-                    <p className="mt-1.5 max-w-[420px] text-xs leading-5 text-muted-foreground">{service.description}</p>
-                  </div>
-                  <div className="flex shrink-0 items-center gap-3 sm:flex-col sm:items-end sm:gap-1">
-                    <span className="font-display text-2xl font-bold text-accent">{service.price}</span>
-                    <span className="font-mono-ui text-[11px] uppercase tracking-[.12em] text-muted-foreground">{service.duration}</span>
+                  <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
+                    <div className="aspect-square w-full shrink-0 overflow-hidden border border-border sm:w-36">
+                      <img
+                        src={barber.portrait}
+                        alt={`${barber.name} — CleanCutz Barbering`}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="eyebrow text-muted-foreground">theCut · {barber.rating} ({barber.reviewCount})</p>
+                      <h3 className="mt-2 font-display text-3xl font-bold">{barber.name}</h3>
+                      <p className="mt-3 text-sm leading-6 text-muted-foreground">{barber.blurb}</p>
+                      <div className="mt-6 flex flex-wrap gap-3">
+                        <a
+                          href={barber.bookingUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-2 rounded-sm bg-accent px-4 py-3 text-xs font-extrabold uppercase tracking-[.12em] text-accent-foreground transition-transform hover:-translate-y-0.5"
+                          data-testid={`link-book-${barber.id}`}
+                        >
+                          Book {barber.shortName} <ExternalLink size={14} />
+                        </a>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            selectBarber(barber.id);
+                            document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
+                          }}
+                          className="inline-flex items-center gap-2 border border-border px-4 py-3 text-xs font-extrabold uppercase tracking-[.12em] transition-colors hover:border-accent hover:text-accent"
+                          data-testid={`button-view-services-${barber.id}`}
+                        >
+                          See prices
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </article>
-              ))}
+              );
+            })}
+          </div>
+        </section>
+
+        <section id="services" className="border-y border-border bg-secondary/40">
+          <div className="container-wide py-24 md:py-32">
+            <div className="grid gap-10 lg:grid-cols-[.72fr_1.28fr]">
+              <div>
+                <p className="eyebrow text-accent">02 / What we do</p>
+                <h2 className="display-title mt-5 max-w-[330px] text-5xl md:text-6xl">Their menu.<br /><em>Your cut.</em></h2>
+                <p className="mt-7 max-w-[300px] text-sm leading-6 text-muted-foreground">
+                  Prices differ by barber. Flip the tab, then book the right chair on theCut.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-2" role="tablist" aria-label="Barber price menus">
+                  {barbers.map((barber) => {
+                    const active = selectedBarberId === barber.id;
+                    return (
+                      <button
+                        key={barber.id}
+                        type="button"
+                        role="tab"
+                        aria-selected={active}
+                        onClick={() => selectBarber(barber.id)}
+                        className={`px-4 py-2.5 text-xs font-extrabold uppercase tracking-[.12em] transition-colors ${
+                          active
+                            ? 'bg-accent text-accent-foreground'
+                            : 'border border-border bg-background text-foreground hover:border-accent hover:text-accent'
+                        }`}
+                        data-testid={`tab-services-${barber.id}`}
+                      >
+                        {barber.shortName}
+                      </button>
+                    );
+                  })}
+                </div>
+                <a
+                  href={selectedBarber.bookingUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-8 inline-flex items-center gap-2 border-b border-accent pb-2 text-xs font-extrabold uppercase tracking-[.12em] text-accent transition-colors hover:text-foreground"
+                  data-testid="link-book-services"
+                >
+                  Book {selectedBarber.shortName} <ArrowRight size={15} />
+                </a>
+              </div>
+              <div className="grid gap-3" role="tabpanel" aria-label={`${selectedBarber.name} services`}>
+                {selectedBarber.services.map((service) => (
+                  <article
+                    key={`${selectedBarber.id}-${service.name}`}
+                    className="service-card group flex flex-col gap-3 border border-border bg-card p-5 transition-colors hover:border-accent sm:flex-row sm:items-start sm:justify-between sm:gap-8"
+                    data-testid={`service-${service.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
+                  >
+                    <div className="min-w-0 flex-1">
+                      <h3 className="font-display text-xl font-bold sm:text-2xl">{service.name}</h3>
+                      <p className="mt-1.5 max-w-[420px] text-xs leading-5 text-muted-foreground">{service.description}</p>
+                    </div>
+                    <div className="flex shrink-0 items-center gap-3 sm:flex-col sm:items-end sm:gap-1">
+                      <span className="font-display text-2xl font-bold text-accent">{service.price}</span>
+                      <span className="font-mono-ui text-[11px] uppercase tracking-[.12em] text-muted-foreground">{service.duration}</span>
+                    </div>
+                  </article>
+                ))}
+              </div>
             </div>
           </div>
         </section>
 
-        <section id="gallery" className="border-y border-border bg-secondary/40">
+        <section id="gallery" className="bg-background">
           <div className="container-wide py-24 md:py-32">
             <div className="flex flex-wrap items-end justify-between gap-5">
               <div>
-                <p className="eyebrow text-accent">02 / Our work</p>
+                <p className="eyebrow text-accent">03 / Our work</p>
                 <h2 className="display-title mt-5 text-5xl md:text-6xl">Cuts that<br /><em>speak.</em></h2>
               </div>
-              <a
-                href={bookingUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 border-b border-foreground pb-2 text-xs font-extrabold uppercase tracking-[.1em] transition-colors hover:border-accent hover:text-accent"
-                data-testid="link-book-gallery"
-              >
-                Book on theCut <ExternalLink size={14} />
-              </a>
+              <div className="flex flex-wrap gap-2" role="group" aria-label="Filter gallery by barber">
+                {(
+                  [
+                    { id: 'all', label: 'All' },
+                    { id: 'walt', label: 'Walt' },
+                    { id: 'mar', label: 'Mar' },
+                  ] as const
+                ).map((filter) => {
+                  const active = galleryFilter === filter.id;
+                  return (
+                    <button
+                      key={filter.id}
+                      type="button"
+                      onClick={() => setGalleryFilter(filter.id)}
+                      className={`px-3 py-2 text-[11px] font-extrabold uppercase tracking-[.12em] transition-colors ${
+                        active
+                          ? 'bg-accent text-accent-foreground'
+                          : 'border border-border text-foreground hover:border-accent hover:text-accent'
+                      }`}
+                      data-testid={`button-gallery-filter-${filter.id}`}
+                    >
+                      {filter.label}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
             <div className="mt-12 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
-              {galleryImages.map((src, index) => (
+              {visibleGallery.map((item, index) => (
                 <button
-                  key={src}
+                  key={item.src}
                   type="button"
                   className="group relative aspect-square overflow-hidden border border-border bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                   onClick={() => setLightboxIndex(index)}
@@ -372,8 +605,8 @@ function Home() {
                   aria-label={`Open gallery photo ${index + 1}`}
                 >
                   <img
-                    src={src}
-                    alt={`CleanCutz Barbering haircut ${index + 1}`}
+                    src={item.src}
+                    alt={`CleanCutz Barbering haircut by ${item.barber === 'walt' ? 'Walt' : 'Mar'} ${index + 1}`}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                   />
@@ -384,7 +617,7 @@ function Home() {
           </div>
         </section>
 
-        <section id="story" className="bg-background">
+        <section id="story" className="border-y border-border bg-secondary/40">
           <div className="container-wide grid items-center gap-14 py-24 md:py-32 lg:grid-cols-[1.15fr_.85fr]">
             <div className="relative order-2 lg:order-1">
               <div className="absolute -left-6 -top-6 h-20 w-20 border-l border-t border-accent" />
@@ -409,10 +642,10 @@ function Home() {
               </div>
             </div>
             <div className="order-1 lg:order-2">
-              <p className="eyebrow text-accent">03 / The place</p>
+              <p className="eyebrow text-accent">04 / The place</p>
               <h2 className="display-title mt-5 text-5xl md:text-7xl">More than<br /><em>a chair.</em></h2>
               <p className="mt-8 max-w-[430px] text-[15px] leading-7 text-muted-foreground">
-                Walk in, shoot a game on the pool table, catch the TV, and settle into a neighborhood shop that feels like yours. Serious detail in the chair — easy vibe everywhere else.
+                Walk in, shoot a game on the pool table, catch the TV, and settle into a neighborhood shop that feels like yours. Walt and Mar both cut here — serious detail in the chair, easy vibe everywhere else.
               </p>
               <div className="mt-9 grid max-w-[430px] grid-cols-2 border-y border-border py-5">
                 <div>
@@ -432,7 +665,7 @@ function Home() {
                   <Check size={14} className="text-accent" /> Restroom
                 </span>
                 <span className="inline-flex items-center gap-2 border border-border bg-card px-3 py-2 text-xs font-bold">
-                  <Star size={14} className="text-accent" /> Walt Gifted Hands
+                  <Star size={14} className="text-accent" /> Walt & Mar / MJ
                 </span>
               </div>
             </div>
@@ -442,7 +675,7 @@ function Home() {
         <section id="reviews" className="container-wide py-24 md:py-32">
           <div className="flex flex-wrap items-end justify-between gap-5">
             <div>
-              <p className="eyebrow text-accent">04 / Word on the street</p>
+              <p className="eyebrow text-accent">05 / Word on the street</p>
               <h2 className="display-title mt-5 text-5xl md:text-6xl">People leave<br /><em>looking good.</em></h2>
             </div>
             <a href="https://www.google.com/search?q=CleanCutz+Barbering+LLC+Pageland+reviews" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 border-b border-foreground pb-2 text-xs font-extrabold uppercase tracking-[.1em] transition-colors hover:border-accent hover:text-accent" data-testid="link-google-reviews">Read all Google reviews <ExternalLink size={14} /></a>
@@ -453,10 +686,10 @@ function Home() {
         <section id="visit" className="border-y border-border bg-card text-foreground">
           <div className="container-wide grid gap-12 py-24 md:py-32 lg:grid-cols-[.85fr_1.15fr]">
             <div>
-              <p className="eyebrow text-accent">05 / Come through</p>
+              <p className="eyebrow text-accent">06 / Come through</p>
               <h2 className="display-title mt-5 text-5xl md:text-7xl">Find the<br /><em className="text-accent">shop.</em></h2>
               <p className="mt-7 max-w-[350px] text-sm leading-6 text-muted-foreground">
-                208 N Maple St, Pageland. Book online through theCut, or call if you want to check the chair first.
+                208 N Maple St, Pageland. Pick Walt or Mar, book online through theCut, or call if you want to check the chair first.
               </p>
               <div className="mt-9 flex flex-wrap gap-3">
                 <a href={mapsUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-sm bg-accent px-5 py-3.5 text-xs font-extrabold uppercase tracking-[.1em] text-accent-foreground transition-transform hover:-translate-y-0.5" data-testid="link-get-directions"><MapPin size={15} /> Get directions</a>
@@ -466,7 +699,7 @@ function Home() {
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="border border-border bg-background p-6 sm:col-span-2">
                 <Clock3 size={21} className="text-accent" />
-                <p className="eyebrow mt-8 text-muted-foreground">Hours</p>
+                <p className="eyebrow mt-8 text-muted-foreground">Shop hours</p>
                 <div className="mt-5 grid gap-2">
                   {hours.map((row) => (
                     <div key={row.day} className="flex items-center justify-between gap-4 border-b border-border/60 py-2 text-sm last:border-b-0">
@@ -475,6 +708,9 @@ function Home() {
                     </div>
                   ))}
                 </div>
+                <p className="mt-4 text-xs leading-5 text-muted-foreground">
+                  Each barber books their own chair on theCut — availability can differ day to day.
+                </p>
               </div>
               <div className="border border-border bg-background p-6">
                 <MapPin size={21} className="text-accent" />
@@ -493,20 +729,23 @@ function Home() {
         </section>
 
         <section className="border-b border-border bg-card">
-          <div className="container-wide flex flex-col items-start justify-between gap-6 py-12 md:flex-row md:items-center">
-            <div>
-              <p className="eyebrow text-accent">Also on theCut</p>
-              <h2 className="mt-2 font-display text-3xl font-bold md:text-4xl">Book through the app you already know.</h2>
+          <div className="container-wide py-12">
+            <p className="eyebrow text-accent">Also on theCut</p>
+            <h2 className="mt-2 font-display text-3xl font-bold md:text-4xl">Book through the app you already know.</h2>
+            <div className="mt-8 flex flex-wrap gap-3">
+              {barbers.map((barber) => (
+                <a
+                  key={barber.id}
+                  href={barber.bookingUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-3 rounded-sm border border-accent px-6 py-4 text-xs font-extrabold uppercase tracking-[.12em] text-accent transition-colors hover:bg-accent hover:text-accent-foreground"
+                  data-testid={`link-thecut-bridge-${barber.id}`}
+                >
+                  Book {barber.shortName} <ArrowRight size={15} />
+                </a>
+              ))}
             </div>
-            <a
-              href={bookingUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-3 rounded-sm border border-accent px-6 py-4 text-xs font-extrabold uppercase tracking-[.12em] text-accent transition-colors hover:bg-accent hover:text-accent-foreground"
-              data-testid="link-thecut-bridge"
-            >
-              Book on theCut <ArrowRight size={15} />
-            </a>
           </div>
         </section>
 
@@ -516,7 +755,7 @@ function Home() {
               <p className="eyebrow opacity-70">Ready when you are</p>
               <h2 className="mt-2 font-display text-4xl font-bold md:text-5xl">Let’s get you in the chair.</h2>
             </div>
-            <a href={bookingUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-3 rounded-sm bg-background px-6 py-4 text-xs font-extrabold uppercase tracking-[.12em] text-foreground transition-transform hover:-translate-y-0.5" data-testid="link-book-bottom">Book an appointment <ArrowRight size={15} /></a>
+            <a href="#barbers" className="inline-flex items-center gap-3 rounded-sm bg-background px-6 py-4 text-xs font-extrabold uppercase tracking-[.12em] text-foreground transition-transform hover:-translate-y-0.5" data-testid="link-book-bottom">Choose a barber <ArrowRight size={15} /></a>
           </div>
         </section>
       </main>
@@ -535,7 +774,7 @@ function Home() {
         </div>
       </footer>
 
-      {lightboxIndex !== null && (
+      {lightboxIndex !== null && visibleGallery[lightboxIndex] && (
         <div
           className="modal-backdrop fixed inset-0 z-[80] flex items-center justify-center bg-black/90 p-4"
           onClick={() => setLightboxIndex(null)}
@@ -560,7 +799,7 @@ function Home() {
               setLightboxIndex((current) =>
                 current === null
                   ? current
-                  : (current - 1 + galleryImages.length) % galleryImages.length,
+                  : (current - 1 + visibleGallery.length) % visibleGallery.length,
               );
             }}
             aria-label="Previous photo"
@@ -569,7 +808,7 @@ function Home() {
             <ArrowLeft size={18} />
           </button>
           <img
-            src={galleryImages[lightboxIndex]}
+            src={visibleGallery[lightboxIndex].src}
             alt={`CleanCutz Barbering haircut ${lightboxIndex + 1}`}
             className="modal-panel max-h-[85vh] max-w-[min(920px,92vw)] object-contain"
             onClick={(event) => event.stopPropagation()}
@@ -580,7 +819,7 @@ function Home() {
             onClick={(event) => {
               event.stopPropagation();
               setLightboxIndex((current) =>
-                current === null ? current : (current + 1) % galleryImages.length,
+                current === null ? current : (current + 1) % visibleGallery.length,
               );
             }}
             aria-label="Next photo"
@@ -589,7 +828,7 @@ function Home() {
             <ArrowRight size={18} />
           </button>
           <p className="absolute bottom-5 left-1/2 -translate-x-1/2 font-mono-ui text-[11px] uppercase tracking-[.16em] text-white/70">
-            {lightboxIndex + 1} / {galleryImages.length}
+            {lightboxIndex + 1} / {visibleGallery.length}
           </p>
         </div>
       )}
