@@ -4,6 +4,7 @@ import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import NotFound from '@/pages/not-found';
+import logoImage from '@assets/IMG_3795_1786331974659.png';
 import {
   ArrowDown,
   ArrowRight,
@@ -53,8 +54,8 @@ function Home() {
       <header className="relative z-20 border-b border-border/80 bg-background/95 backdrop-blur-sm">
         <div className="container-wide flex h-[74px] items-center justify-between">
           <a href="#top" className="flex items-center gap-3" data-testid="link-home">
-            <span className="relative flex h-10 w-10 items-center justify-center rounded-full bg-primary text-background">
-              <Scissors size={19} strokeWidth={1.8} />
+            <span className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-sm border border-accent/40 bg-primary">
+              <img src={logoImage} alt="" className="h-full w-full object-contain" />
               <span className="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full bg-accent" />
             </span>
             <span className="leading-none">
@@ -119,28 +120,8 @@ function Home() {
             </div>
             <div className="relative mx-auto w-full max-w-[540px] lg:justify-self-end">
               <div className="absolute -left-5 top-12 hidden h-32 w-2.5 red-stripe sm:block" />
-              <div className="image-frame hero-image barber-graphic relative aspect-[.89] overflow-hidden rounded-sm border-[10px] border-background bg-primary sm:aspect-[.92]" aria-label="A branded illustration of a barber chair at CleanCutz">
-                <div className="barber-graphic-grid absolute inset-0" />
-                <div className="absolute left-[12%] top-[13%]">
-                  <p className="eyebrow text-background/60">CleanCutz / 001</p>
-                  <p className="mt-3 max-w-[260px] font-display text-5xl leading-[.9] text-background sm:text-6xl">Fresh<br /><em className="text-accent">from the chair.</em></p>
-                </div>
-                <div className="barber-chair absolute bottom-[13%] left-1/2 h-[47%] w-[42%] -translate-x-1/2">
-                  <div className="barber-chair-head absolute left-1/2 top-0 h-[27%] w-[48%] -translate-x-1/2 rounded-t-[45%] border-4 border-accent bg-background/10" />
-                  <div className="barber-chair-back absolute left-1/2 top-[21%] h-[45%] w-[62%] -translate-x-1/2 rounded-t-[35%] border-4 border-accent bg-background/10" />
-                  <div className="barber-chair-seat absolute bottom-[16%] left-1/2 h-[22%] w-[78%] -translate-x-1/2 rounded-[35%] border-4 border-accent bg-accent/20" />
-                  <div className="barber-chair-base absolute bottom-0 left-1/2 h-[20%] w-1 -translate-x-1/2 bg-accent" />
-                  <div className="absolute bottom-0 left-1/2 h-2 w-[55%] -translate-x-1/2 rounded-full bg-accent" />
-                  <div className="absolute bottom-0 left-[10%] h-2 w-2 rounded-full bg-accent" />
-                  <div className="absolute bottom-0 right-[10%] h-2 w-2 rounded-full bg-accent" />
-                </div>
-                <div className="absolute inset-x-0 bottom-0 flex items-end justify-between border-t border-background/20 bg-primary/80 px-5 pb-5 pt-5 text-background backdrop-blur-sm">
-                  <div>
-                    <p className="eyebrow text-background/60">208 N Maple Street</p>
-                    <p className="mt-1 font-display text-2xl">Your chair is here.</p>
-                  </div>
-                  <span className="float-mark hidden h-14 w-14 items-center justify-center rounded-full border border-background/50 text-center text-[9px] font-bold uppercase leading-3 tracking-[.1em] sm:flex">Since<br />Pageland</span>
-                </div>
+              <div className="image-frame hero-image relative aspect-square overflow-hidden rounded-sm border-[10px] border-background bg-primary">
+                <img src={logoImage} alt="CleanCutz Barbering LLC logo with a barber pole, chair, and gold lettering" className="h-full w-full object-contain" data-testid="img-logo-hero" />
               </div>
               <div className="absolute -bottom-4 -right-4 hidden bg-primary px-5 py-4 text-background sm:block">
                 <p className="eyebrow text-background/60">Open Tuesday</p>
@@ -299,7 +280,7 @@ function Home() {
 
       <footer className="container-wide flex flex-col gap-7 py-10 md:flex-row md:items-end md:justify-between">
         <div>
-          <div className="flex items-center gap-3"><span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-background"><Scissors size={15} /></span><span className="font-display text-xl font-bold">CleanCutz</span></div>
+          <div className="flex items-center gap-3"><span className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-sm border border-accent/40 bg-primary"><img src={logoImage} alt="" className="h-full w-full object-contain" /></span><span className="font-display text-xl font-bold">CleanCutz</span></div>
           <p className="mt-3 text-xs text-muted-foreground">CleanCutz Barbering LLC · Pageland, South Carolina</p>
         </div>
         <div className="flex items-center gap-5">
