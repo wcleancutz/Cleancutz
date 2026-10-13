@@ -8,6 +8,7 @@ import logo from '@assets/logo-cleancutz.png';
 import poolTable from '@assets/shop/pool-table.jpg';
 import marPortrait from '@assets/gallery/mar-cut-01.jpg';
 import waltPortrait from '@assets/gallery/cut-01.jpg';
+import citadelLogo from '@assets/citadel-cofield-logo.png';
 import {
   ArrowDown,
   ArrowLeft,
@@ -756,7 +757,9 @@ function Home() {
           <div className="container-wide flex flex-col items-start justify-between gap-8 py-12 md:flex-row md:items-center">
             <div className="min-w-0">
               <p className="eyebrow text-accent">Official Real Estate Sponsor of CleanCutz Barbering</p>
-              <h2 className="mt-2 font-display text-3xl font-bold md:text-4xl">Citadel Cofield Real Estate</h2>
+              <h2 className="mt-3">
+                <img src={citadelLogo} alt="Citadel Cofield" className="h-12 w-auto max-w-full object-contain md:h-14" />
+              </h2>
               <p className="mt-3 max-w-[480px] text-sm leading-6 text-muted-foreground">
                 When you're ready to buy, sell, or invest in the Carolinas, Citadel Cofield will walk you through it start to finish. Licensed in North Carolina and South Carolina.
               </p>
@@ -816,7 +819,7 @@ function Home() {
               className="font-semibold text-foreground underline-offset-4 transition-colors hover:text-accent hover:underline"
               data-testid="link-citadel-cofield"
             >
-              Citadel Cofield Real Estate
+              Citadel Cofield
             </a>
           </p>
         </div>
