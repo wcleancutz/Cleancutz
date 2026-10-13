@@ -752,6 +752,41 @@ function Home() {
           </div>
         </section>
 
+        <section className="border-b border-border bg-background" data-testid="section-real-estate">
+          <div className="container-wide flex flex-col items-start justify-between gap-8 py-12 md:flex-row md:items-center">
+            <div className="min-w-0">
+              <p className="eyebrow text-accent">Official Real Estate Sponsor of CleanCutz Barbering</p>
+              <h2 className="mt-2 font-display text-3xl font-bold md:text-4xl">Citadel Cofield Real Estate</h2>
+              <p className="mt-3 max-w-[480px] text-sm leading-6 text-muted-foreground">
+                When you're ready to buy, sell, or invest in the Carolinas, Citadel Cofield will walk you through it start to finish. Licensed in North Carolina and South Carolina.
+              </p>
+            </div>
+            <div className="w-full shrink-0 md:w-auto">
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <a
+                  href="https://citadelcofield.com"
+                  target="_blank"
+                  rel="noopener"
+                  className="inline-flex items-center justify-center gap-3 rounded-sm bg-accent px-6 py-4 text-xs font-extrabold uppercase tracking-[.12em] text-accent-foreground transition-transform hover:-translate-y-0.5"
+                  data-testid="link-citadel-buy"
+                >
+                  Buying a home <ArrowRight size={15} />
+                </a>
+                <a
+                  href="https://citadelcofield.com"
+                  target="_blank"
+                  rel="noopener"
+                  className="inline-flex items-center justify-center gap-3 rounded-sm border border-accent px-6 py-4 text-xs font-extrabold uppercase tracking-[.12em] text-accent transition-colors hover:bg-accent hover:text-accent-foreground"
+                  data-testid="link-citadel-sell"
+                >
+                  Selling a home <ExternalLink size={15} />
+                </a>
+              </div>
+              <p className="mt-3 text-xs text-muted-foreground">Carnarri Cofield, Principal Broker</p>
+            </div>
+          </div>
+        </section>
+
         <section className="border-b border-border bg-accent text-accent-foreground">
           <div className="container-wide flex flex-col items-start justify-between gap-6 py-12 md:flex-row md:items-center">
             <div>
@@ -773,7 +808,7 @@ function Home() {
           </div>
           <p className="mt-3 text-xs text-muted-foreground">CleanCutz Barbering · Pageland, South Carolina</p>
           <p className="mt-2 text-xs text-muted-foreground">
-            Buying or selling in the Carolinas? Talk to{" "}
+            Official Real Estate Sponsor:{" "}
             <a
               href="https://citadelcofield.com"
               target="_blank"
@@ -783,7 +818,6 @@ function Home() {
             >
               Citadel Cofield Real Estate
             </a>
-            .
           </p>
         </div>
         <div className="flex items-center gap-5">
