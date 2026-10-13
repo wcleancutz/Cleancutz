@@ -772,6 +772,19 @@ function Home() {
             <img src={logo} alt="CleanCutz Barbering" className="h-14 w-auto object-contain" />
           </div>
           <p className="mt-3 text-xs text-muted-foreground">CleanCutz Barbering · Pageland, South Carolina</p>
+          <p className="mt-2 text-xs text-muted-foreground">
+            Buying or selling in the Carolinas? Talk to{" "}
+            <a
+              href="https://citadelcofield.com"
+              target="_blank"
+              rel="noopener"
+              className="font-semibold text-foreground underline-offset-4 transition-colors hover:text-accent hover:underline"
+              data-testid="link-citadel-cofield"
+            >
+              Citadel Cofield Real Estate
+            </a>
+            .
+          </p>
         </div>
         <div className="flex items-center gap-5">
           <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="CleanCutz Barbering on Instagram" className="text-muted-foreground transition-colors hover:text-accent" data-testid="link-instagram"><Instagram size={17} /></a>
